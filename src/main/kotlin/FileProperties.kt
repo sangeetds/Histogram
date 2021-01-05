@@ -1,5 +1,5 @@
 interface FileProperties {
     companion object {
-        val name: String = "numbers.txt"
+        const val name: String = "numbers.txt"
     }
 }

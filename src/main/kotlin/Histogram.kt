@@ -1,14 +1,11 @@
 import kotlin.math.ceil
 
-class Histogram(
-    private val bucketSize: Long,
-    private val dataPoints: DataPoints
-    ) {
+class Histogram {
 
-    private val buckets: LongArray = LongArray(ceil(dataPoints.maxValue / bucketSize.toDouble()).toInt())
-
-    fun createSections() : List<Triple<Long, Long, Long>> {
-        dataPoints.segregate()
+    fun createSections(bucketSize: Long,
+                        dataPoints: DataPoints) : List<Triple<Long, Long, Long>> {
+        val buckets = MutableList(ceil(dataPoints.maxValue / bucketSize.toDouble()).toInt()) { 0L }
+        dataPoints.segregate(buckets = buckets, bucketSize = bucketSize)
 
         var initial = 0L
 
@@ -17,13 +14,5 @@ class Histogram(
             Triple(initial - bucketSize + 1, initial, count)
         }
     }
-
-    private fun DataPoints.segregate() {
-        this.values.forEach { num ->
-            val index = ((num - 1) / bucketSize).toInt()
-            buckets[index]++
-        }
-    }
-
 
 }

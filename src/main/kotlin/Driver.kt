@@ -1,10 +1,11 @@
 fun main() {
     val fileReader = FileReader()
-    fileReader.readFile()
-    val dataPoints = DataPoints(fileReader.values)
-    val gram = Histogram(fileReader.bucket, dataPoints)
+    fileReader.readFile(fileName = FileProperties.name)
 
-    val list = gram.createSections()
+    val dataPoints = DataPoints(values = fileReader.values)
+    val gram = Histogram()
+
+    val list = gram.createSections(bucketSize = fileReader.bucket ?: 10, dataPoints = dataPoints)
 
     list.forEach { (first, second, third) ->
         println("$first to $second: $third")
