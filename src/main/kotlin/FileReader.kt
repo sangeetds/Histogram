@@ -21,11 +21,16 @@ class FileReader {
 
         return try {
             bucket = bufferReader.readLine().toLong()
+            require(bucket > 0)
             FileValues(values = values, bucket = bucket)
         } catch (exception: NullPointerException) {
             println("Missing values for bucket size. Using default value of 10.")
             FileValues(values = values)
-        } finally {
+        } catch (ex: IllegalArgumentException) {
+            println("Bucket size shouldn't be 0. USing default value of 10")
+            FileValues(values = values)
+        }
+        finally {
             bufferReader.close()
         }
     }
