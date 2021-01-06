@@ -21,10 +21,10 @@ class FileReader {
 
         return try {
             bucket = bufferReader.readLine().toLong()
-            FileValues(values, bucket)
+            FileValues(values = values, bucket = bucket)
         } catch (exception: NullPointerException) {
             println("Missing values for bucket size. Using default value of 10.")
-            FileValues(values)
+            FileValues(values = values)
         } finally {
             bufferReader.close()
         }

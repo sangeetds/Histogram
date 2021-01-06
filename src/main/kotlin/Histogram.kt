@@ -8,7 +8,7 @@ class Histogram {
         var initial = 0L
         return buckets.map { count ->
             initial += bucketSize
-            Interval(initial - bucketSize + 1, initial, count)
+            Interval(start = initial - bucketSize + 1, end = initial, value = count)
         }
     }
 
