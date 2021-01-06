@@ -1,5 +1,4 @@
 import org.junit.Test
-import kotlin.math.ceil
 import kotlin.test.assertEquals
 
 class DataPointsTest {
@@ -20,9 +19,7 @@ class DataPointsTest {
     fun `Bucket Size of 10 with 7 equidistributed numbers gives 7 equal size buckets`() {
         val dataPoints = DataPoints(values = listOf(1, 11, 22, 33, 44, 55, 66))
         val bucket = 10L
-        val bucketArray = MutableList(ceil(dataPoints.maxValue / bucket.toDouble()).toInt()) { 0L }
-        dataPoints.segregate(bucketSize = bucket, buckets = bucketArray)
 
-        assertEquals(listOf<Long>(1, 1, 1, 1, 1, 1, 1), bucketArray)
+        assertEquals(listOf<Long>(1, 1, 1, 1, 1, 1, 1), dataPoints.segregate(bucketSize = bucket))
     }
 }

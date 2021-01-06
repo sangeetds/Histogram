@@ -1,19 +1,20 @@
 import java.io.File
 
-class FileReader(var values: List<Long> = listOf(), var bucket: Long? = null) {
-    fun readFile(fileName: String) {
+class FileReader {
+    fun readFile(fileName: String, separator: String): FileValues {
         val file = File(fileName)
         val bufferReader = file.bufferedReader()
 
-        values = bufferReader.readLine()!!.split(", ").map { it.toLong() }
+        val values = bufferReader.readLine()!!.split(separator).map { it.toLong() }
+        val bucket: Long
 
-        try {
+        return try {
             bucket = bufferReader.readLine().toLong()
-        }
-        catch (exception: NullPointerException) {
-            println("Missing values for bucket size. Initialising empty values")
-        }
-        finally {
+            FileValues(values, bucket)
+        } catch (exception: NullPointerException) {
+            println("Missing values for bucket size. Using default value of 10.")
+            FileValues(values)
+        } finally {
             bufferReader.close()
         }
     }
